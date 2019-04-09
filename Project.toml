@@ -1,0 +1,8 @@
+name = "PlotUtils"
+uuid = "86bcce02-5a0b-11e9-08a9-498a82e2f397"
+authors = ["roger <roger.herikstad@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+AbstractPlotting = "537997a7-5e4e-5d89-9595-2241ea00577e"
+SomeCoolColourMaps = "e63bc064-195f-11e9-0ab5-d119b9c57c36"

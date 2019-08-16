@@ -42,7 +42,7 @@ function AbstractPlotting.plot!(plot::AxHSpan)
     x = plot[1]
     rr = map(_limits) do ll
         _x = x[]
-        y0 = ll.origin[1]
+        y0 = ll.origin[2]
         h = ll.widths[2]
         FRect(Point2f0(_x[1], y0), Point2f0(_x[2]-_x[1], h))
     end

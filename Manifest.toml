@@ -330,7 +330,7 @@ uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
 deps = ["ColorTypes", "Colors", "Interpolations", "LinearAlgebra", "Printf", "Test"]
 git-tree-sha1 = "cb6fbeff07034976640ffd63d0dab7155369de9e"
 repo-rev = "master"
-repo-url = "../SomeCoolColourMaps"
+repo-url = "https://gitlab.com/grero/SomeCoolColourMaps.jl.git"
 uuid = "e63bc064-195f-11e9-0ab5-d119b9c57c36"
 version = "0.1.0"
 

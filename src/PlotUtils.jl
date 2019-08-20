@@ -3,24 +3,15 @@ using SomeCoolColourMaps
 using AbstractPlotting
 import AbstractPlotting:plot!, Plot, default_theme, to_value
 
-
-struct Wedges
-    θ::Vector{Float32}
-    Δθ::Float32
-    origin::Point2f0
-    r::Point2f0
-end
-
-function default_theme(scene::SceneLike, ::Type{<: Plot(Wedges)})
+@recipe(Wedges, θ, Δθ, origin, r) do scene
     Theme(colormap = cmap("C2"))
 end
 
-function AbstractPlotting.plot!(p::Plot(Wedges))
-    wedges = to_value(p[1])
-    origin = wedges.origin
-    θ = wedges.θ
-    Δθ = wedges.Δθ
-    r = wedges.r
+function AbstractPlotting.plot!(p::Wedges)
+    origin = p[3][]
+    θ = p[1][]
+    Δθ = p[2][]
+    r = p[4][]
     polys = Vector{Point2f0}[]
     _cm = p[:colormap][]
     colors = _cm[1:div(length(_cm),length(θ)):length(_cm)]

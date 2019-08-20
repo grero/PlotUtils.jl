@@ -23,3 +23,11 @@ end
     @test ll.widths ≈ [1.2, 1.2, 0.0]
     @test ll.origin ≈ [0.9, -0.1, 0.0]
 end
+
+@testset "Plane" begin
+    points = [Point3f0(-1.0, -1.0, -1.0), Point3f0(-1.0, 1.0, -1.0), Point3f0(1.0, 1.0, 1.0), Point3f0(1.0, -1.0, 1.0)]
+    scene = plane(points)
+    @test scene.plots[2].plots[1][1][].vertices ≈ Point{3,Float32}[[-1.0, -1.0, -1.0], [-1.0, 1.0, -1.0], [1.0, 1.0, 1.0], [1.0, -1.0, 1.0]]
+    @test scene.plots[2].plots[1][1][].normals[2] ≈ Float32[0.707107, 0.0, -0.707107]
+    @test scene.plots[2].plots[1][1][].normals[4] ≈  Float32[-0.707107, 0.0, 0.707107]
+end

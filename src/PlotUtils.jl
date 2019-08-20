@@ -40,4 +40,15 @@ function AbstractPlotting.plot!(plot::AxHSpan)
     poly!(plot, rr, color=plot[:fill_color])
 end
 
+@recipe(Plane, points) do scene
+    Theme()
+end
+
+function AbstractPlotting.plot!(plot::Plane)
+    points = plot[1]
+    #define triangles
+    tridx = [1,2,3,1,4,3]
+    mesh!(plot,points, tridx)
+end
+
 end # module

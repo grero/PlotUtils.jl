@@ -53,15 +53,17 @@ end
 
 @recipe(StackedBuckets, level, height) do scene
     Theme(colormap = cmap("C2"),
-          vertical = true)
+          vertical = true,
+          xoffset = 0.0,
+          yoffset = 0.0)
 end
 
 function AbstractPlotting.plot!(plot::StackedBuckets)
     bheight = plot[1][]
     blevel = plot[2][]
     vertical = plot[:vertical][]
-    xoffset = 0.0
-    yoffset = 0.0
+    xoffset = plot[:xoffset][]
+    yoffset = plot[:yoffset][]
     _cm = plot[:colormap][]
     colors = _cm[1:div(length(_cm),length(bheight)):length(_cm)]
     for (h,l,color) in zip(bheight, blevel,colors)

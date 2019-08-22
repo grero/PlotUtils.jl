@@ -1,7 +1,7 @@
 module PlotUtils
 using SomeCoolColourMaps
 using AbstractPlotting
-import AbstractPlotting:plot!, Plot, default_theme, to_value
+import AbstractPlotting:plot!, Plot, default_theme, to_value, RGBA
 
 @recipe(Wedges, θ, Δθ, origin, r) do scene
     Theme(colormap = cmap("C2"))
@@ -49,6 +49,25 @@ function AbstractPlotting.plot!(plot::Plane)
     #define triangles
     tridx = [1,2,3,1,4,3]
     mesh!(plot,points, tridx)
+end
+
+@recipe(StackedBuckets, level, height) do scene
+    Theme(colormap = cmap("C2"))
+end
+
+function AbstractPlotting.plot!(plot::StackedBuckets)
+    bheight = plot[1][]
+    blevel = plot[2][]
+    offset = 0.0
+    _cm = plot[:colormap][]
+    colors = _cm[1:div(length(_cm),length(bheight)):length(_cm)]
+    for (h,l,color) in zip(bheight, blevel,colors)
+        rrh = FRect(Point2f0(0.0, offset), Point2f0(1.0, h))
+        poly!(plot, rrh, color=color)
+        rrl = FRect(Point2f0(0.0, offset), Point2f0(1.0, l))
+        poly!(plot, rrl, color=RGBA(1.0, 1.0, 1.0,1.0) .- color)
+        offset += h
+    end
 end
 
 end # module

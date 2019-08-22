@@ -45,4 +45,12 @@ end
     @test scene.plots[2].plots[2][1][][1][3] ≈ Point2f0(l[1], 1.0)
     @test scene.plots[2].plots[3][1][][1][3] ≈ Point2f0(h[1] + h[2], 1.0)
     @test scene.plots[2].plots[4][1][][1][3] ≈ Point2f0(h[1] + l[2], 1.0)
+    h = 10*rand(4)
+    l = rand(4).*h
+    scene = stackedbuckets(h,l)
+    h = 10*rand(4)
+    l = rand(4).*h
+    stackedbuckets!(scene, h,l, xoffset=1.5)
+    @test scene.plots[3].plots[1][1][][1][3] ≈ Point2f0(2.5, h[1])
+
 end

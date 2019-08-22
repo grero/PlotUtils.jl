@@ -63,8 +63,8 @@ function AbstractPlotting.plot!(plot::StackedBuckets)
     colors = _cm[1:div(length(_cm),length(bheight)):length(_cm)]
     for (h,l,color) in zip(bheight, blevel,colors)
         rrh = FRect(Point2f0(0.0, offset), Point2f0(1.0, h))
-        poly!(plot, rrh, color=RGBA(1.0, 1.0, 1.0,2.0) .- color)
         rrl = FRect(Point2f0(0.0, offset), Point2f0(1.0, l))
+        poly!(plot, rrh, color=RGBA(0.2, 0.2, 0.2,0.0) + 0.8*color)
         poly!(plot, rrl, color=color)
         offset += h
     end

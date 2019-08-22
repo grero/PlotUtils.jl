@@ -52,21 +52,35 @@ function AbstractPlotting.plot!(plot::Plane)
 end
 
 @recipe(StackedBuckets, level, height) do scene
-    Theme(colormap = cmap("C2"))
+    Theme(colormap = cmap("C2"),
+          vertical = true)
 end
 
 function AbstractPlotting.plot!(plot::StackedBuckets)
     bheight = plot[1][]
     blevel = plot[2][]
-    offset = 0.0
+    vertical = plot[:vertical][]
+    xoffset = 0.0
+    yoffset = 0.0
     _cm = plot[:colormap][]
     colors = _cm[1:div(length(_cm),length(bheight)):length(_cm)]
     for (h,l,color) in zip(bheight, blevel,colors)
-        rrh = FRect(Point2f0(0.0, offset), Point2f0(1.0, h))
-        rrl = FRect(Point2f0(0.0, offset), Point2f0(1.0, l))
+        if vertical
+            Δh = Point2f0(1.0, h)
+            Δl = Point2f0(1.0, l)
+        else
+            Δh = Point2f0(h, 1.0)
+            Δl = Point2f0(l, 1.0)
+        end
+        rrh = FRect(Point2f0(xoffset, yoffset),Δh)
+        rrl = FRect(Point2f0(xoffset, yoffset), Δl)
         poly!(plot, rrh, color=RGBA(0.2, 0.2, 0.2,0.0) + 0.8*color)
         poly!(plot, rrl, color=color)
-        offset += h
+        if vertical
+            yoffset += h
+        else
+            xoffset += h
+        end
     end
 end
 

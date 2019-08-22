@@ -31,3 +31,13 @@ end
     @test scene.plots[2].plots[1][1][].normals[2] ≈ Float32[0.707107, 0.0, -0.707107]
     @test scene.plots[2].plots[1][1][].normals[4] ≈  Float32[-0.707107, 0.0, 0.707107]
 end
+
+@testset "StackedBuckets" begin
+    h = 10*rand(4)
+    l = rand(4).*h
+    scene = stackedbuckets(h,l)
+    @test scene.plots[2].plots[1][1][][1][3] ≈ Point2f0(1.0, h[1])
+    @test scene.plots[2].plots[2][1][][1][3] ≈ Point2f0(1.0, l[1])
+    @test scene.plots[2].plots[3][1][][1][3] ≈ Point2f0(1.0, h[1] + h[2])
+    @test scene.plots[2].plots[4][1][][1][3] ≈ Point2f0(1.0, h[1] + l[2])
+end
